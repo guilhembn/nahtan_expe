@@ -1,0 +1,18 @@
+<launch>
+  
+  <!-- Static publisher for motion capture frame (to calibrate ?) -->
+  <node pkg="tf" type="static_transform_publisher" name="optitrack_2_map_static"
+    args="5.5 2.5 0.0 0.0 0.0 0.0 map optitrack 30"/>
+
+  <!-- head manager -->
+  <include file="$(find head_manager)/launch/head_manager.launch" />
+
+  <!-- navigation head behavior -->
+  <include file="$(acting_navigation_head_behavior)/launch/nav_head_behavior.launch />
+
+  <!-- PR2 navigation stack -->
+  <include file="$(find laas_navigation)/pr2_launch/pr2_laas_adream_locate_nav.launch"/>
+
+    <!-- Expe supervisor -->
+  <node pkg="nathan_expe" type="expe_nathan.py" name="expe_supervisor"/>
+</launch>
